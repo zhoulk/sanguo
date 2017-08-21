@@ -1,4 +1,6 @@
-package com.mud.entity;
+package com.mud.mapper;
+
+import com.mud.mapper.defines.SoldierType;
 
 /**
  * Created by leeesven on 17/8/19.
@@ -10,7 +12,7 @@ public class Hero {
     private String desc;
     private Integer star;
     private Integer cost;
-    private Integer type;
+    private SoldierType type;
     private Integer intelligence;
     private Integer atkDist;
     private Integer towerAtk;
@@ -62,11 +64,11 @@ public class Hero {
         this.cost = cost;
     }
 
-    public Integer getType() {
+    public SoldierType getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(SoldierType type) {
         this.type = type;
     }
 
