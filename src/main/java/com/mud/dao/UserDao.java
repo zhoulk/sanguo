@@ -1,10 +1,6 @@
 package com.mud.dao;
 
 import com.mud.mapper.User;
-import com.mud.mapper.defines.SkillType;
-import com.mud.mapper.defines.SkillTypeTypeHandler;
-import com.mud.mapper.defines.SoldierType;
-import com.mud.mapper.defines.SoldierTypeTypeHandler;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;

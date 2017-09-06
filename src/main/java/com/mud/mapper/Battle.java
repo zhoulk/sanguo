@@ -1,31 +1,31 @@
 package com.mud.mapper;
 
-import com.mud.mapper.defines.BattleStatus;
+import com.mud.mapper.defines.DBStatus;
 
 /**
  * Created by leeesven on 17/8/20.
  */
 public class Battle {
 
-    private String battleId;
-    private String chapterId;
+    private Integer battleId;
+    private Integer chapterId;
     private String battleTitle;
     private String battleDesc;
-    private BattleStatus status;
+    private DBStatus status;
 
-    public String getBattleId() {
+    public Integer getBattleId() {
         return battleId;
     }
 
-    public void setBattleId(String battleId) {
+    public void setBattleId(Integer battleId) {
         this.battleId = battleId;
     }
 
-    public String getChapterId() {
+    public Integer getChapterId() {
         return chapterId;
     }
 
-    public void setChapterId(String chapterId) {
+    public void setChapterId(Integer chapterId) {
         this.chapterId = chapterId;
     }
 
@@ -45,11 +45,11 @@ public class Battle {
         this.battleDesc = battleDesc;
     }
 
-    public BattleStatus getStatus() {
+    public DBStatus getStatus() {
         return status;
     }
 
-    public void setStatus(BattleStatus status) {
+    public void setStatus(DBStatus status) {
         this.status = status;
     }
 }

@@ -1,8 +1,8 @@
 package com.mud.dao;
 
 import com.mud.mapper.Chapter;
-import com.mud.mapper.defines.BattleStatus;
-import com.mud.mapper.defines.BattleStatusTypeHandler;
+import com.mud.mapper.defines.DBStatus;
+import com.mud.mapper.defines.DBStatusTypeHandler;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
@@ -19,7 +19,7 @@ public interface ChapterDao {
             @Result(property = "chapterId", column = "chapter_id"),
             @Result(property = "chapterTitle", column = "chapter_title"),
             @Result(property = "chapterDesc", column = "chapter_desc"),
-            @Result(property = "status", column = "status", javaType = BattleStatus.class, typeHandler = BattleStatusTypeHandler.class),
+            @Result(property = "status", column = "status", javaType = DBStatus.class, typeHandler = DBStatusTypeHandler.class),
     })
     public ArrayList<Chapter> getAllChapter();
 
@@ -28,7 +28,7 @@ public interface ChapterDao {
             @Result(property = "chapterId", column = "chapter_id"),
             @Result(property = "chapterTitle", column = "chapter_title"),
             @Result(property = "chapterDesc", column = "chapter_desc"),
-            @Result(property = "status", column = "status", javaType = BattleStatus.class, typeHandler = BattleStatusTypeHandler.class),
+            @Result(property = "status", column = "status", javaType = DBStatus.class, typeHandler = DBStatusTypeHandler.class),
     })
     public Chapter getChapterById(Integer chapterId);
 }

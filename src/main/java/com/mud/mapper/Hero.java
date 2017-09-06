@@ -1,6 +1,6 @@
 package com.mud.mapper;
 
-import com.mud.mapper.defines.SoldierType;
+import com.mud.mapper.defines.DBType;
 
 /**
  * Created by leeesven on 17/8/19.
@@ -12,7 +12,7 @@ public class Hero {
     private String desc;
     private Integer star;
     private Integer cost;
-    private SoldierType type;
+    private DBType type;
     private Integer intelligence;
     private Integer atkDist;
     private Integer towerAtk;
@@ -64,11 +64,11 @@ public class Hero {
         this.cost = cost;
     }
 
-    public SoldierType getType() {
+    public DBType getType() {
         return type;
     }
 
-    public void setType(SoldierType type) {
+    public void setType(DBType type) {
         this.type = type;
     }
 

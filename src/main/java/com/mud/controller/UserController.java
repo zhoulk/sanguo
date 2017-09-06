@@ -1,20 +1,17 @@
 package com.mud.controller;
 
-import com.mud.dao.SequeneDao;
-import com.mud.dao.UserAuthDao;
-import com.mud.dao.UserDao;
+import com.mud.dao.*;
 import com.mud.mapper.User;
 import com.mud.mapper.UserAuth;
-import com.mud.mapper.defines.Macro;
+import com.mud.mapper.defines.DBMacro;
 import com.mud.helper.EncoderHelper;
 import com.mud.model.ResponseModel;
+import com.mud.model.UserModel;
 import com.mud.property.ResponseCode;
 import com.mud.property.SGProps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -26,22 +23,22 @@ import java.util.Date;
 public class UserController {
 
     @Autowired
-    SGProps sgProps;
+    private SGProps sgProps;
 
     @Autowired
-    UserDao userDao;
+    private UserDao userDao;
 
     @Autowired
-    UserAuthDao userAuthDao;
+    private UserAuthDao userAuthDao;
 
     @Autowired
-    SequeneDao sequeneDao;
+    private SequeneDao sequeneDao;
 
     /**
      * 用户注册
      * @param name  账号
      * @param password  密码
-     * @return
+     * @return  {@code User}
      */
     @PostMapping(value = "/register")
     public ResponseModel api_user_register(@RequestParam String name, @RequestParam String password){
@@ -57,7 +54,7 @@ public class UserController {
                 String newPassword = name + password + sgProps.getMDSecret();
                 String md5Str = EncoderHelper.EcoderByMD5(newPassword);
 
-                int seqNo = sequeneDao.nextVal(Macro.SEQ_NAME_USER);
+                int seqNo = sequeneDao.nextVal(DBMacro.SEQ_NAME_USER);
 
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
                 String nowdate = sdf.format(new Date());
@@ -70,7 +67,7 @@ public class UserController {
 
                 UserAuth userAuth = new UserAuth();
                 userAuth.setUserId(userId);
-                userAuth.setAuthName(Macro.AUTH_NAME_LOCAL);
+                userAuth.setAuthName(DBMacro.AUTH_NAME_LOCAL);
                 userAuth.setAuthId(md5Str);
                 userAuthDao.insertUserAuth(userAuth);
 
@@ -89,10 +86,12 @@ public class UserController {
      * 用户登录
      * @param name  账号
      * @param password  密码
-     * @return
+     * @return  {@code UserModel}
      */
     @PostMapping(value = "/login")
     public ResponseModel api_user_login(@RequestParam String name, @RequestParam String password){
+
+        System.out.println("api_user_login name = " + name + " ,password = " + password);
 
         ResponseModel responseModel = new ResponseModel();
 
@@ -109,8 +108,14 @@ public class UserController {
                 e.printStackTrace();
             }
             if (userAuth.getAuthId().equalsIgnoreCase(md5Str)){
+
+                //生成accessToken
+                String accessToken = EncoderHelper.AccessToken();
+                userAuth.setAuthAccessToken(accessToken);
+                userAuthDao.updateUserAuth(userAuth);
+
                 responseModel.setCode(ResponseCode.USER_LOGIN_SUCCESS);
-                responseModel.setData(historyUser);
+                responseModel.setData(new UserModel(historyUser, userAuth));
             }else {
                 responseModel.setCode(ResponseCode.USER_LOGIN_PASSWORD_ERR);
             }

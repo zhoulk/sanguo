@@ -1,7 +1,6 @@
 package com.mud.mapper;
 
-import com.mud.mapper.defines.SkillType;
-import com.mud.mapper.defines.SoldierType;
+import com.mud.mapper.defines.DBType;
 
 import java.io.Serializable;
 
@@ -13,8 +12,8 @@ public class Skill implements Serializable{
     private String skillId;
     private String skillName;
     private String desc;
-    private SkillType skillType;
-    private SoldierType soldierType;
+    private DBType skillType;
+    private DBType soldierType;
     private Integer atkDist;
     private String atkDest;
     private String cond;
@@ -44,19 +43,19 @@ public class Skill implements Serializable{
         this.desc = desc;
     }
 
-    public SkillType getSkillType() {
+    public DBType getSkillType() {
         return skillType;
     }
 
-    public void setSkillType(SkillType skillType) {
+    public void setSkillType(DBType skillType) {
         this.skillType = skillType;
     }
 
-    public SoldierType getSoldierType() {
+    public DBType getSoldierType() {
         return soldierType;
     }
 
-    public void setSoldierType(SoldierType soldierType) {
+    public void setSoldierType(DBType soldierType) {
         this.soldierType = soldierType;
     }
 

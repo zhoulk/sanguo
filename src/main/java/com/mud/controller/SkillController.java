@@ -2,11 +2,9 @@ package com.mud.controller;
 
 import com.mud.dao.SkillDao;
 import com.mud.mapper.Skill;
+import com.mud.model.ResponseModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
@@ -19,15 +17,56 @@ import java.util.ArrayList;
 public class SkillController {
 
     @Autowired
-    SkillDao skillDao;
+    private SkillDao skillDao;
 
+    /**
+     * 获取战法列表
+     * @return  {@code ArrayList<Skill>}
+     */
     @GetMapping(value = "/all")
-    public ArrayList<Skill> getAllSkill(){
-        return skillDao.getAllSkill();
+    public ResponseModel getAllSkill(){
+        ResponseModel responseModel = new ResponseModel();
+        responseModel.setData(skillDao.getAllSkill());
+        return responseModel;
     }
 
+    /**
+     * 获取指定战法信息
+     * @param skillId   战法Id
+     * @return {@code Skill}
+     */
     @GetMapping(value = "/{skillId}")
-    public Skill getSkillById(@PathVariable String skillId){
-        return skillDao.getSkillById(skillId);
+    public ResponseModel getSkillById(@PathVariable String skillId){
+        ResponseModel responseModel = new ResponseModel();
+        responseModel.setData(skillDao.getSkillById(skillId));
+        return responseModel;
+    }
+
+    /**
+     * 分解战法
+     * @param userSkillId   战法Id
+     * @return  {@code ResponseModel}
+     */
+    @PostMapping(value = "/convert_to_point")
+    public ResponseModel convertToPoint(@RequestParam String userSkillId){
+        ResponseModel responseModel = new ResponseModel();
+
+        //TODO
+
+        return responseModel;
+    }
+
+    /**
+     * 战法升级
+     * @param userSkillId   战法Id
+     * @return  {@code ResponseModel}
+     */
+    @PostMapping(value = "/level_up")
+    public ResponseModel levelUp(@RequestParam String userSkillId){
+        ResponseModel responseModel = new ResponseModel();
+
+        //TODO
+
+        return responseModel;
     }
 }

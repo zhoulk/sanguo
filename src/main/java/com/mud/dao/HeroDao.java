@@ -1,8 +1,8 @@
 package com.mud.dao;
 
 import com.mud.mapper.Hero;
-import com.mud.mapper.defines.SoldierType;
-import com.mud.mapper.defines.SoldierTypeTypeHandler;
+import com.mud.mapper.defines.DBType;
+import com.mud.mapper.defines.DBTypeTypeHandler;
 import org.apache.ibatis.annotations.*;
 
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ public interface HeroDao {
             @Result(property = "moveSpeed", column = "move_speed"),
             @Result(property = "skillId", column = "skill_id"),
             @Result(property = "exSkillId", column = "ex_skill_id"),
-            @Result(property = "type", column = "type", javaType = SoldierType.class, typeHandler = SoldierTypeTypeHandler.class)
+            @Result(property = "type", column = "type", javaType = DBType.class, typeHandler = DBTypeTypeHandler.class)
     })
     Hero getHeroById(String heroId);
 
@@ -32,7 +32,7 @@ public interface HeroDao {
             @Result(property = "moveSpeed", column = "move_speed"),
             @Result(property = "skillId", column = "skill_id"),
             @Result(property = "exSkillId", column = "ex_skill_id"),
-            @Result(property = "type", column = "type", javaType = SoldierType.class, typeHandler = SoldierTypeTypeHandler.class)
+            @Result(property = "type", column = "type", javaType = DBType.class, typeHandler = DBTypeTypeHandler.class)
     })
     ArrayList<Hero> getAllHero();
 }

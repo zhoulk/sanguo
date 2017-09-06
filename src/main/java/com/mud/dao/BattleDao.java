@@ -1,8 +1,8 @@
 package com.mud.dao;
 
 import com.mud.mapper.Battle;
-import com.mud.mapper.defines.BattleStatus;
-import com.mud.mapper.defines.BattleStatusTypeHandler;
+import com.mud.mapper.defines.DBStatus;
+import com.mud.mapper.defines.DBStatusTypeHandler;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
@@ -20,7 +20,7 @@ public interface BattleDao {
             @Result(property = "chapterId", column = "chapter_id"),
             @Result(property = "battleTitle", column = "battle_title"),
             @Result(property = "battleDesc", column = "battle_desc"),
-            @Result(property = "status", column = "status", javaType = BattleStatus.class, typeHandler = BattleStatusTypeHandler.class),
+            @Result(property = "status", column = "status", javaType = DBStatus.class, typeHandler = DBStatusTypeHandler.class),
     })
     public ArrayList<Battle> getAllBattleByChapterId(Integer chapterId);
 
@@ -30,7 +30,7 @@ public interface BattleDao {
             @Result(property = "chapterId", column = "chapter_id"),
             @Result(property = "battleTitle", column = "battle_title"),
             @Result(property = "battleDesc", column = "battle_desc"),
-            @Result(property = "status", column = "status", javaType = BattleStatus.class, typeHandler = BattleStatusTypeHandler.class),
+            @Result(property = "status", column = "status", javaType = DBStatus.class, typeHandler = DBStatusTypeHandler.class),
     })
     public Battle getBattleById(Integer battleId);
 }
