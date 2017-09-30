@@ -1,7 +1,5 @@
 package com.mud.mapper;
 
-import com.mud.mapper.defines.DBType;
-
 /**
  * Created by leeesven on 17/8/19.
  */
@@ -12,7 +10,7 @@ public class Hero {
     private String desc;
     private Integer star;
     private Integer cost;
-    private DBType type;
+    private int type;
     private Integer intelligence;
     private Integer atkDist;
     private Integer towerAtk;
@@ -64,11 +62,11 @@ public class Hero {
         this.cost = cost;
     }
 
-    public DBType getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(DBType type) {
+    public void setType(int type) {
         this.type = type;
     }
 

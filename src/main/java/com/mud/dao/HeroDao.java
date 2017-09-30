@@ -1,8 +1,6 @@
 package com.mud.dao;
 
 import com.mud.mapper.Hero;
-import com.mud.mapper.defines.DBType;
-import com.mud.mapper.defines.DBTypeTypeHandler;
 import org.apache.ibatis.annotations.*;
 
 import java.util.ArrayList;
@@ -20,7 +18,6 @@ public interface HeroDao {
             @Result(property = "moveSpeed", column = "move_speed"),
             @Result(property = "skillId", column = "skill_id"),
             @Result(property = "exSkillId", column = "ex_skill_id"),
-            @Result(property = "type", column = "type", javaType = DBType.class, typeHandler = DBTypeTypeHandler.class)
     })
     Hero getHeroById(String heroId);
 
@@ -32,7 +29,28 @@ public interface HeroDao {
             @Result(property = "moveSpeed", column = "move_speed"),
             @Result(property = "skillId", column = "skill_id"),
             @Result(property = "exSkillId", column = "ex_skill_id"),
-            @Result(property = "type", column = "type", javaType = DBType.class, typeHandler = DBTypeTypeHandler.class)
     })
     ArrayList<Hero> getAllHero();
+
+    @Select("SELECT * FROM hero WHERE can_select = 1 order by hero_id")
+    @Results({
+            @Result(property = "heroId", column = "hero_id"),
+            @Result(property = "atkDist", column = "atk_dist"),
+            @Result(property = "towerAtk", column = "tower_atk"),
+            @Result(property = "moveSpeed", column = "move_speed"),
+            @Result(property = "skillId", column = "skill_id"),
+            @Result(property = "exSkillId", column = "ex_skill_id"),
+    })
+    ArrayList<Hero> getAllHeroOfCanSelect();
+
+    @Select("SELECT * FROM hero WHERE star = #{0} order by hero_id")
+    @Results({
+            @Result(property = "heroId", column = "hero_id"),
+            @Result(property = "atkDist", column = "atk_dist"),
+            @Result(property = "towerAtk", column = "tower_atk"),
+            @Result(property = "moveSpeed", column = "move_speed"),
+            @Result(property = "skillId", column = "skill_id"),
+            @Result(property = "exSkillId", column = "ex_skill_id"),
+    })
+    ArrayList<Hero> getAllHeroOfStar(int star);
 }

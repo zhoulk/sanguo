@@ -1,8 +1,6 @@
 package com.mud.dao;
 
 import com.mud.mapper.UserHero;
-import com.mud.mapper.defines.DBStatus;
-import com.mud.mapper.defines.DBStatusTypeHandler;
 import org.apache.ibatis.annotations.*;
 
 import java.util.ArrayList;
@@ -14,15 +12,14 @@ public interface UserHeroDao {
 
     @Insert("INSERT INTO user_hero(user_hero_id, user_id, hero_id, level, status, ex_skill_id1, ex_skill_id2) " +
             "VALUES " +
-            "(#{userHeroId}, #{userId}, #{heroId}, #{level}, #{status.value}, #{exSkillId1}, #{exSkillId2})")
+            "(#{userHeroId}, #{userId}, #{heroId}, #{level}, #{status}, #{exSkillId1}, #{exSkillId2})")
     void insertUserHero(UserHero userHero);
 
-    @Select("SELECT * FROM user_hero where user_id = #{userId}")
+    @Select("SELECT * FROM user_hero where user_id = #{userId} AND status IN (1,5)")
     @Results({
             @Result(property = "userHeroId", column = "user_hero_id"),
             @Result(property = "userId", column = "user_id"),
             @Result(property = "heroId", column = "hero_id"),
-            @Result(property = "status", column = "status", javaType = DBStatus.class, typeHandler = DBStatusTypeHandler.class),
             @Result(property = "exSkillId1", column = "ex_skill_id1"),
             @Result(property = "exSkillId2", column = "ex_skill_id2"),
     })
@@ -30,7 +27,12 @@ public interface UserHeroDao {
 
     @Update("UPDATE user_hero " +
             "SET " +
-            "status = #{status.value} " +
+            "status = #{status}, " +
+            "level = #{level}, " +
+            "exp = #{exp}, " +
+            "sp = #{sp}, " +
+            "ex_skill_id1 = #{exSkillId1}, " +
+            "ex_skill_id2 = #{exSkillId2} " +
             "WHERE " +
             "user_hero_id = #{userHeroId}")
     void updateUserHero(UserHero userHero);
@@ -40,9 +42,18 @@ public interface UserHeroDao {
             @Result(property = "userHeroId", column = "user_hero_id"),
             @Result(property = "userId", column = "user_id"),
             @Result(property = "heroId", column = "hero_id"),
-            @Result(property = "status", column = "status", javaType = DBStatus.class, typeHandler = DBStatusTypeHandler.class),
             @Result(property = "exSkillId1", column = "ex_skill_id1"),
             @Result(property = "exSkillId2", column = "ex_skill_id2"),
     })
     UserHero getUserHeroByUserHeroId(String userHeroId);
+
+    @Select("SELECT * FROM user_hero WHERE user_id = #{0} AND hero_id = #{1}")
+    @Results({
+            @Result(property = "userHeroId", column = "user_hero_id"),
+            @Result(property = "userId", column = "user_id"),
+            @Result(property = "heroId", column = "hero_id"),
+            @Result(property = "exSkillId1", column = "ex_skill_id1"),
+            @Result(property = "exSkillId2", column = "ex_skill_id2"),
+    })
+    UserHero getUserHeroByUserIdHeroId(String userId, String heroId);
 }

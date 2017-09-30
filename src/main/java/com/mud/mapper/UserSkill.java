@@ -28,6 +28,11 @@ public class UserSkill {
     private Integer level;
 
     /**
+     * '合成进度'
+     */
+    private Integer percent;
+
+    /**
      * '装配英雄编号'
      */
     private String useHeroId;
@@ -67,6 +72,8 @@ public class UserSkill {
     }
 
     public Integer getLevel() {
+        if (level == null)
+            level = 0;
         return level;
     }
 
@@ -96,5 +103,15 @@ public class UserSkill {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public Integer getPercent() {
+        if (percent == null)
+            percent = 0;
+        return percent;
+    }
+
+    public void setPercent(Integer percent) {
+        this.percent = percent;
     }
 }

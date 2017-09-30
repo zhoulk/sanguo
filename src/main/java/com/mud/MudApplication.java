@@ -11,6 +11,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 @MapperScan("com.mud.dao")
 public class MudApplication {
+    static {
+
+    }
     public static void main(String[] args){
         SpringApplication.run(MudApplication.class, args);
     }

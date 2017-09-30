@@ -1,14 +1,17 @@
 package com.mud.controller;
 
+import com.mud.context.UserContext;
 import com.mud.dao.*;
 import com.mud.mapper.User;
 import com.mud.mapper.UserAuth;
+import com.mud.mapper.UserExtend;
 import com.mud.mapper.defines.DBMacro;
 import com.mud.helper.EncoderHelper;
 import com.mud.model.ResponseModel;
 import com.mud.model.UserModel;
 import com.mud.property.ResponseCode;
 import com.mud.property.SGProps;
+import com.mud.service.SequenceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +35,10 @@ public class UserController {
     private UserAuthDao userAuthDao;
 
     @Autowired
-    private SequeneDao sequeneDao;
+    private SequenceService sequenceService;
+
+    @Autowired
+    UserExtendDao userExtendDao;
 
     /**
      * 用户注册
@@ -54,11 +60,7 @@ public class UserController {
                 String newPassword = name + password + sgProps.getMDSecret();
                 String md5Str = EncoderHelper.EcoderByMD5(newPassword);
 
-                int seqNo = sequeneDao.nextVal(DBMacro.SEQ_NAME_USER);
-
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-                String nowdate = sdf.format(new Date());
-                String userId = String.format("%s%04d", nowdate, seqNo);
+                String userId = sequenceService.sequenceOfUser();
 
                 User currUser = new User();
                 currUser.setUserId(userId);
@@ -124,5 +126,25 @@ public class UserController {
         return responseModel;
     }
 
+    @GetMapping(value = "/skill_point")
+    public ResponseModel getSkillPoint(){
+
+        UserAuth userAuth = UserContext.getCurrentUserAuth();
+        String userId = userAuth.getUserId();
+        System.out.println("getSkillPoint userId = " + userId);
+
+        ResponseModel responseModel = new ResponseModel();
+
+        UserExtend userExtend = userExtendDao.getExtendOfUserSkillPoint(userId);
+        int skillPoint = 0;
+        if (userExtend != null){
+            skillPoint = Integer.parseInt(userExtend.getVal());
+        }
+        UserModel userModel = new UserModel();
+        userModel.setSkillPoint(skillPoint);
+        responseModel.setData(userModel);
+
+        return responseModel;
+    }
 
 }

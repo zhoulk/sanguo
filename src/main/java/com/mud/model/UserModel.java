@@ -11,6 +11,10 @@ public class UserModel {
     private String userName;
     private String authAccessToken;
 
+    private int skillPoint;
+
+    public UserModel(){}
+
     public UserModel(User user, UserAuth userAuth) {
         this.userName = user.getUserName();
         this.authAccessToken = userAuth.getAuthAccessToken();
@@ -30,5 +34,13 @@ public class UserModel {
 
     public void setAuthAccessToken(String authAccessToken) {
         this.authAccessToken = authAccessToken;
+    }
+
+    public int getSkillPoint() {
+        return skillPoint;
+    }
+
+    public void setSkillPoint(int skillPoint) {
+        this.skillPoint = skillPoint;
     }
 }

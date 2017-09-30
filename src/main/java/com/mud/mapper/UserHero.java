@@ -1,7 +1,5 @@
 package com.mud.mapper;
 
-import com.mud.mapper.defines.DBStatus;
-
 import java.util.Date;
 
 /**
@@ -15,8 +13,10 @@ public class UserHero {
     private String userHeroId;
     private String userId;
     private String heroId;
-    private Integer level;
-    private DBStatus status;
+    private int level;
+    private int exp;
+    private int sp;
+    private int status;
     private String exSkillId1;
     private String exSkillId2;
     private Date updateTime;
@@ -54,11 +54,11 @@ public class UserHero {
         this.level = level;
     }
 
-    public DBStatus getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(DBStatus status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
@@ -92,5 +92,21 @@ public class UserHero {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public int getExp() {
+        return exp;
+    }
+
+    public void setExp(int exp) {
+        this.exp = exp;
+    }
+
+    public int getSp() {
+        return sp;
+    }
+
+    public void setSp(int sp) {
+        this.sp = sp;
     }
 }

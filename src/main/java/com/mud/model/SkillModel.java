@@ -2,7 +2,6 @@ package com.mud.model;
 
 import com.mud.mapper.Skill;
 import com.mud.mapper.UserSkill;
-import com.mud.mapper.defines.DBType;
 
 /**
  * Created by leeesven on 17/8/23.
@@ -12,9 +11,11 @@ public class SkillModel {
     private String skillId;
     private String skillName;
     private String desc;
-    private DBType skillType;
-    private DBType soldierType;
+    private String script;
+    private int skillType;
+    private int soldierType;
     private Integer atkDist;
+    private String atkDestType;
     private String atkDest;
     private String cond;
     private String caution;
@@ -27,25 +28,50 @@ public class SkillModel {
      * '等级'
      */
     private Integer level;
+    /**
+     * 合成进度
+     */
+    private Integer percent;
 
     /**
      * '装配英雄编号'
      */
     private String useHeroId;
 
+    private HeroModel useHeroModel;
+
+    public int canUpExp; // 升级需要的经验
+
+    public SkillModel(Skill skill) {
+        this.skillId = skill.getSkillId();
+        this.skillName = skill.getSkillName();
+        this.desc = skill.getDesc();
+        this.script = skill.getScript();
+        this.skillType = skill.getSkillType();
+        this.soldierType = skill.getSoldierType();
+        this.atkDist = skill.getAtkDist();
+        this.atkDestType = skill.getAtkDestType();
+        this.atkDest = skill.getAtkDest();
+        this.cond = skill.getCond();
+        this.caution = skill.getCaution();
+    }
+
     public SkillModel(Skill skill, UserSkill userSkill){
         this.skillId = skill.getSkillId();
         this.skillName = skill.getSkillName();
         this.desc = skill.getDesc();
+        this.script = skill.getScript();
         this.skillType = skill.getSkillType();
         this.soldierType = skill.getSoldierType();
         this.atkDist = skill.getAtkDist();
+        this.atkDestType = skill.getAtkDestType();
         this.atkDest = skill.getAtkDest();
         this.cond = skill.getCond();
         this.caution = skill.getCaution();
 
         this.userSkillId = userSkill.getUserSkillId();
         this.level= userSkill.getLevel();
+        this.percent = userSkill.getPercent();
         this.useHeroId = userSkill.getUseHeroId();
     }
 
@@ -81,19 +107,19 @@ public class SkillModel {
         this.desc = desc;
     }
 
-    public DBType getSkillType() {
+    public int getSkillType() {
         return skillType;
     }
 
-    public void setSkillType(DBType skillType) {
+    public void setSkillType(int skillType) {
         this.skillType = skillType;
     }
 
-    public DBType getSoldierType() {
+    public int getSoldierType() {
         return soldierType;
     }
 
-    public void setSoldierType(DBType soldierType) {
+    public void setSoldierType(int soldierType) {
         this.soldierType = soldierType;
     }
 
@@ -143,5 +169,45 @@ public class SkillModel {
 
     public void setUseHeroId(String useHeroId) {
         this.useHeroId = useHeroId;
+    }
+
+    public String getAtkDestType() {
+        return atkDestType;
+    }
+
+    public void setAtkDestType(String atkDestType) {
+        this.atkDestType = atkDestType;
+    }
+
+    public String getScript() {
+        return script;
+    }
+
+    public void setScript(String script) {
+        this.script = script;
+    }
+
+    public Integer getPercent() {
+        return percent;
+    }
+
+    public void setPercent(Integer percent) {
+        this.percent = percent;
+    }
+
+    public HeroModel getUseHeroModel() {
+        return useHeroModel;
+    }
+
+    public void setUseHeroModel(HeroModel useHeroModel) {
+        this.useHeroModel = useHeroModel;
+    }
+
+    public int getCanUpExp() {
+        return canUpExp;
+    }
+
+    public void setCanUpExp(int canUpExp) {
+        this.canUpExp = canUpExp;
     }
 }

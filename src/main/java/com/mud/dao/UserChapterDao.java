@@ -1,8 +1,6 @@
 package com.mud.dao;
 
 import com.mud.mapper.UserChapter;
-import com.mud.mapper.defines.DBStatus;
-import com.mud.mapper.defines.DBStatusTypeHandler;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
@@ -19,7 +17,6 @@ public interface UserChapterDao {
     @Results({
             @Result(property = "userId", column = "user_id"),
             @Result(property = "chapterId", column = "chapter_id"),
-            @Result(property = "status", column = "status", javaType = DBStatus.class, typeHandler = DBStatusTypeHandler.class),
             @Result(property = "updateTime", column = "update_time"),
             @Result(property = "createTime", column = "create_time"),
     })
@@ -27,6 +24,6 @@ public interface UserChapterDao {
 
     @Insert("INSERT INTO user_chapter(user_id, chapter_id, status) " +
             "VALUES " +
-            "(#{userId}, #{chapterId}, #{status.value})")
+            "(#{userId}, #{chapterId}, #{status})")
     void insertUserChapter(UserChapter userChapter);
 }

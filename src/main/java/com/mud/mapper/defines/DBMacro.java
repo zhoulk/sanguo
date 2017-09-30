@@ -23,5 +23,9 @@ public class DBMacro {
      * 序列号  英雄
      */
     public static final String SEQ_NAME_HERO = "hero";
+    /**
+     * 序列号  战报
+     */
+    public static final String SEQ_NAME_REPORT = "report";
 
 }

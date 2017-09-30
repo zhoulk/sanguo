@@ -1,7 +1,5 @@
 package com.mud.mapper;
 
-import com.mud.mapper.defines.DBStatus;
-
 import java.util.Date;
 
 /**
@@ -22,7 +20,7 @@ public class UserBattle {
     private Integer score;
 
     // '状态 1 未通关 2 未激活'
-    private DBStatus status;
+    private int status;
 
     // '更新时间'
     private Date updateTime;
@@ -62,11 +60,11 @@ public class UserBattle {
         this.score = score;
     }
 
-    public DBStatus getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(DBStatus status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 

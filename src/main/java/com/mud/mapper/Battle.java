@@ -1,7 +1,5 @@
 package com.mud.mapper;
 
-import com.mud.mapper.defines.DBStatus;
-
 /**
  * Created by leeesven on 17/8/20.
  */
@@ -11,7 +9,7 @@ public class Battle {
     private Integer chapterId;
     private String battleTitle;
     private String battleDesc;
-    private DBStatus status;
+    private int status;
 
     public Integer getBattleId() {
         return battleId;
@@ -45,11 +43,11 @@ public class Battle {
         this.battleDesc = battleDesc;
     }
 
-    public DBStatus getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(DBStatus status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 }

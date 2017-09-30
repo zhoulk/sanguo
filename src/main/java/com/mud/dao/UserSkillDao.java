@@ -1,9 +1,9 @@
 package com.mud.dao;
 
 import com.mud.mapper.UserSkill;
-import com.mud.mapper.defines.DBStatus;
-import com.mud.mapper.defines.DBStatusTypeHandler;
 import org.apache.ibatis.annotations.*;
+
+import java.util.List;
 
 /**
  * Created by leeesven on 17/8/23.
@@ -19,11 +19,35 @@ public interface UserSkillDao {
     @Results({
             @Result(property = "userSkillId", column = "user_skill_id"),
             @Result(property = "userId", column = "user_id"),
-            @Result(property = "heroId", column = "hero_id"),
+            @Result(property = "skillId", column = "skill_id"),
             @Result(property = "useHeroId", column = "use_hero_id"),
     })
     UserSkill getUserSkillByUserSkillId(String userSkillId);
 
-    @Update("")
+    @Select("SELECT * FROM user_skill WHERE level > 0 AND user_id = #{userId}")
+    @Results({
+            @Result(property = "userSkillId", column = "user_skill_id"),
+            @Result(property = "userId", column = "user_id"),
+            @Result(property = "skillId", column = "skill_id"),
+            @Result(property = "useHeroId", column = "use_hero_id"),
+    })
+    List<UserSkill> getAllUserSkills(String userId);
+
+    @Select("SELECT * FROM user_skill WHERE level = 0 AND user_id = #{userId}")
+    @Results({
+            @Result(property = "userSkillId", column = "user_skill_id"),
+            @Result(property = "userId", column = "user_id"),
+            @Result(property = "skillId", column = "skill_id"),
+            @Result(property = "useHeroId", column = "use_hero_id"),
+    })
+    List<UserSkill> getAllIntoUserSkills(String userId);
+
+    @Update("UPDATE user_skill " +
+            "SET " +
+            "level = #{level}, " +
+            "percent = #{percent}, " +
+            "use_hero_id = #{useHeroId} " +
+            "WHERE " +
+            "user_skill_id = #{userSkillId}")
     void updateUserSkill(UserSkill userSkill);
 }

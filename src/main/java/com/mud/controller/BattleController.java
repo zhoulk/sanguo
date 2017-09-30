@@ -6,11 +6,10 @@ import com.mud.dao.ChapterDao;
 import com.mud.dao.UserBattleDao;
 import com.mud.dao.UserChapterDao;
 import com.mud.mapper.*;
-import com.mud.mapper.defines.DBStatus;
 import com.mud.model.BattleModel;
 import com.mud.model.ChapterModel;
-import com.mud.model.HeroModel;
 import com.mud.model.ResponseModel;
+import com.mud.model.define.SGMacro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -101,7 +100,7 @@ public class BattleController {
                 UserChapter userChapter = new UserChapter();
                 userChapter.setUserId(userAuth.getUserId());
                 userChapter.setChapterId(chapter.getChapterId());
-                userChapter.setStatus(DBStatus.USER_BATTLE_UN_COMPLETE);
+                userChapter.setStatus(SGMacro.SG_BATTLE_USER_BATTLE_UN_COMPLETE);
                 userChapterDao.insertUserChapter(userChapter);
             }
         }
@@ -139,7 +138,7 @@ public class BattleController {
                 userBattle.setUserId(userAuth.getUserId());
                 userBattle.setChapterId(battle.getChapterId());
                 userBattle.setBattleId(battle.getBattleId());
-                userBattle.setStatus(DBStatus.USER_BATTLE_UN_COMPLETE);
+                userBattle.setStatus(SGMacro.SG_BATTLE_USER_BATTLE_UN_COMPLETE);
                 userBattleDao.insertUserBattle(userBattle);
             }
         }

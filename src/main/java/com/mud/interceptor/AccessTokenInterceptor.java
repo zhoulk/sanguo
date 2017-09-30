@@ -11,6 +11,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.logging.Logger;
 
 /**
  * Created by leeesven on 17/8/22.
@@ -19,14 +21,31 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class AccessTokenInterceptor implements HandlerInterceptor{
 
+    private Logger logger = Logger.getLogger(AccessTokenInterceptor.class.getName());
+
+    private ArrayList<String> ignoreUrlList = new ArrayList<>();
+
+    public AccessTokenInterceptor() {
+        ignoreUrlList.add("api/user/register");
+        ignoreUrlList.add("api/user/login");
+    }
+
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        System.out.println("preHandle-------------");
+        logger.info("preHandle-------------");
+        boolean dontNeedAuth = false;
+
+        for (int i=0; i<ignoreUrlList.size(); i++){
+            int index = httpServletRequest.getRequestURL().indexOf(ignoreUrlList.get(i));
+            if (index > 0){
+                dontNeedAuth = true;
+            }
+        }
 
         String token = httpServletRequest.getHeader(HttpMacro.SESSION_ID);
         UserAuth userAuth = userAuthDao.getUserAuthByAccessToken(token);
 
-        if (userAuth != null){
+        if (userAuth != null || dontNeedAuth){
             UserContext context = new UserContext(userAuth);
             return true;
         }
@@ -36,12 +55,12 @@ public class AccessTokenInterceptor implements HandlerInterceptor{
 
     @Override
     public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {
-        System.out.println("postHandle-------------");
+        logger.info("postHandle-------------");
     }
 
     @Override
     public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) throws Exception {
-        System.out.println("afterCompletion-------------");
+        logger.info("afterCompletion-------------");
     }
 
     @Autowired

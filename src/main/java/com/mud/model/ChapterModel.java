@@ -2,7 +2,6 @@ package com.mud.model;
 
 import com.mud.mapper.Chapter;
 import com.mud.mapper.UserChapter;
-import com.mud.mapper.defines.DBStatus;
 
 /**
  * Created by leeesven on 17/8/23.
@@ -19,7 +18,7 @@ public class ChapterModel {
     private Integer score;
 
     // '状态 1 未通关 2 未激活'
-    private DBStatus status;
+    private int status;
 
     public ChapterModel(Chapter chapter, UserChapter userChapter){
         this.chapterId = chapter.getChapterId();
@@ -62,11 +61,11 @@ public class ChapterModel {
         this.score = score;
     }
 
-    public DBStatus getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(DBStatus status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 }
