@@ -37,14 +37,14 @@ public class NpcService {
      * @param battleId
      * @return
      */
-    public ArrayList<HeroModel> getHerosOfBattleId(int battleId){
+    public ArrayList<HeroModel> getHerosOfBattleId(String battleId){
         ArrayList<HeroModel> heros = new ArrayList<>();
         logger.info("获取战役NPC列表 start ");
         // 难度系数计算
         // 章节 * 10 + 战役
         logger.info("1.难度系数计算 ");
         Battle battle =  battleDao.getBattleById(battleId);
-        int degree = battle.getChapterId() * 10 + battle.getBattleId() / 100;
+        int degree = 100;
         logger.info("难度系数计算 = " + degree);
 
         // 确定武将数量 (1-3)
@@ -337,7 +337,7 @@ public class NpcService {
             }
 
             // 阵位
-            model.setPosition(3);
+            model.setPosCol(3);
 
             heros.add(model);
         }
@@ -374,7 +374,7 @@ public class NpcService {
             }
 
             // 阵位
-            model.setPosition(2);
+            model.setPosCol(2);
 
             heros.add(model);
         }
@@ -411,7 +411,7 @@ public class NpcService {
             }
 
             // 阵位
-            model.setPosition(1);
+            model.setPosCol(1);
 
             heros.add(model);
         }

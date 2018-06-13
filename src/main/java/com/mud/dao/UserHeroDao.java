@@ -10,9 +10,11 @@ import java.util.ArrayList;
  */
 public interface UserHeroDao {
 
-    @Insert("INSERT INTO user_hero(user_hero_id, user_id, hero_id, level, status, ex_skill_id1, ex_skill_id2) " +
+    @Insert("INSERT INTO user_hero(user_hero_id, user_id, hero_id, level, status, " +
+            "ex_skill_id1, ex_skill_id2, intelligence, atk_dist, tower_atk, attack, defence, speed) " +
             "VALUES " +
-            "(#{userHeroId}, #{userId}, #{heroId}, #{level}, #{status}, #{exSkillId1}, #{exSkillId2})")
+            "(#{userHeroId}, #{userId}, #{heroId}, #{level}, #{status}, #{exSkillId1}, #{exSkillId2}," +
+            " #{intelligence}, #{atkDist}, #{towerAtk}, #{attack}, #{defence}, #{moveSpeed})")
     void insertUserHero(UserHero userHero);
 
     @Select("SELECT * FROM user_hero where user_id = #{userId} AND status IN (1,5)")
@@ -22,6 +24,9 @@ public interface UserHeroDao {
             @Result(property = "heroId", column = "hero_id"),
             @Result(property = "exSkillId1", column = "ex_skill_id1"),
             @Result(property = "exSkillId2", column = "ex_skill_id2"),
+            @Result(property = "atkDist", column = "atk_dist"),
+            @Result(property = "towerAtk", column = "tower_atk"),
+            @Result(property = "moveSpeed", column = "speed"),
     })
     ArrayList<UserHero> getAllUserHero(String userId);
 

@@ -11,10 +11,10 @@ public class UserBattle {
     private String userId;
 
     // '章回'
-    private Integer chapterId;
+    private String chapterId;
 
     // '战役'
-    private Integer battleId;
+    private String battleId;
 
     // '得分'
     private Integer score;
@@ -36,19 +36,19 @@ public class UserBattle {
         this.userId = userId;
     }
 
-    public Integer getChapterId() {
+    public String getChapterId() {
         return chapterId;
     }
 
-    public void setChapterId(Integer chapterId) {
+    public void setChapterId(String chapterId) {
         this.chapterId = chapterId;
     }
 
-    public Integer getBattleId() {
+    public String getBattleId() {
         return battleId;
     }
 
-    public void setBattleId(Integer battleId) {
+    public void setBattleId(String battleId) {
         this.battleId = battleId;
     }
 

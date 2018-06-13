@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public interface SkillDao {
 
-    @Select("SELECT * FROM skill where skill_id = #{skillId}")
+    @Select("SELECT * FROM skill where skill_name = #{skillId}")
     @Results({
             @Result(property = "skillId", column = "skill_id"),
             @Result(property = "skillName", column = "skill_name"),

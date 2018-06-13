@@ -12,9 +12,9 @@ public class UserReport {
     // '用户编号'
     private String userId;
     // '章回'
-    private int chapterId;
+    private String chapterId;
     // '战役'
-    private int battleId;
+    private String battleId;
     // '状态 0 平局 1 胜利 2 失败'
     private int result;
     // '更新时间'
@@ -30,11 +30,11 @@ public class UserReport {
         return userId;
     }
 
-    public int getChapterId() {
+    public String getChapterId() {
         return chapterId;
     }
 
-    public int getBattleId() {
+    public String getBattleId() {
         return battleId;
     }
 
@@ -58,11 +58,11 @@ public class UserReport {
         this.userId = userId;
     }
 
-    public void setChapterId(int chapterId) {
+    public void setChapterId(String chapterId) {
         this.chapterId = chapterId;
     }
 
-    public void setBattleId(int battleId) {
+    public void setBattleId(String battleId) {
         this.battleId = battleId;
     }
 

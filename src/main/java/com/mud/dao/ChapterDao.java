@@ -1,5 +1,6 @@
 package com.mud.dao;
 
+import com.mud.mapper.Battle;
 import com.mud.mapper.Chapter;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
  */
 public interface ChapterDao {
 
-    @Select("SELECT * FROM chapter order by chapter_id")
+    @Select("SELECT * FROM chapter order by id")
     @Results({
             @Result(property = "chapterId", column = "chapter_id"),
             @Result(property = "chapterTitle", column = "chapter_title"),
@@ -26,5 +27,5 @@ public interface ChapterDao {
             @Result(property = "chapterTitle", column = "chapter_title"),
             @Result(property = "chapterDesc", column = "chapter_desc"),
     })
-    public Chapter getChapterById(Integer chapterId);
+    public Chapter getChapterById(String chapterId);
 }

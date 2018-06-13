@@ -11,6 +11,7 @@ import com.mud.model.UserModel;
 import com.mud.model.define.SGMacro;
 import com.mud.property.ResponseCode;
 import com.mud.service.CalService;
+import com.mud.service.HeroService;
 import com.mud.service.SequenceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -43,6 +44,9 @@ public class HeroController {
     private SequenceService sequenceService;
 
     @Autowired
+    HeroService heroService;
+
+    @Autowired
     private UserSelectHeroDao userSelectHeroDao;
 
     @Autowired
@@ -68,6 +72,28 @@ public class HeroController {
     public ResponseModel getAllHero(){
         ResponseModel responseModel = new ResponseModel();
         responseModel.setData(heroDao.getAllHero());
+        return responseModel;
+    }
+
+    /**
+     * 随机一个武将
+     * @param level 随机等级
+     */
+    @GetMapping(value = "/random/{level}")
+    public ResponseModel randomAHero(@PathVariable int level){
+        ResponseModel responseModel = new ResponseModel();
+        HeroModel randomHero = heroService.randomAHero(level);
+        if(randomHero != null){
+            // 给用户增加一个武将
+            UserAuth userAuth = UserContext.getCurrentUserAuth();
+            String userId = userAuth.getUserId();
+            boolean res = heroService.addUserHero(userId, randomHero.getHeroId());
+            if(!res){
+                responseModel.setCode(ResponseCode.HERO_RANDOM_FAIL);
+            }else{
+                responseModel.setData(randomHero);
+            }
+        }
         return responseModel;
     }
 
@@ -120,6 +146,13 @@ public class HeroController {
                 Hero hero = heroDao.getHeroById(userHero.getHeroId());
                 HeroModel heroModel = new HeroModel(hero, userHero);
                 createFullHeroModel(heroModel);
+
+                UserSelectHero userSelectHero = userSelectHeroDao.getUserSelectHeroByUserHeroId(userHero.getUserHeroId());
+                if(userSelectHero != null){
+                    heroModel.setPosCol(userSelectHero.getPosCol());
+                    heroModel.setPosRow(userSelectHero.getPosRow());
+                }
+
                 models.add(heroModel);
             }
         }
@@ -271,20 +304,20 @@ public class HeroController {
                 HeroExtend heroExtend = heroExtendDao.getHeroExtendConvertSkillPoint(hero.getHeroId());
                 int upPoint = Integer.parseInt(heroExtend.getVal());
                 int currentPoint;
-                UserExtend userExtend = userExtendDao.getExtendOfUserSkillPoint(userId);
-                if (userExtend == null){
-                    currentPoint = upPoint;
-                    userExtend = new UserExtend();
-                    userExtend.setUserId(userId);
-                    userExtend.setProp("skillPoint");
-                    userExtend.setVal(currentPoint + "");
-                    userExtendDao.insertExtendOfUser(userExtend);
-                }else {
-                    currentPoint = Integer.parseInt(userExtend.getVal());
-                    currentPoint += upPoint;
-                    userExtend.setVal(currentPoint + "");
-                    userExtendDao.updateExtendOfUser(userExtend);
-                }
+//                UserExtend userExtend = userExtendDao.getExtendOfUserSkillPoint(userId);
+//                if (userExtend == null){
+//                    currentPoint = upPoint;
+//                    userExtend = new UserExtend();
+//                    userExtend.setUserId(userId);
+//                    userExtend.setProp("skillPoint");
+//                    userExtend.setVal(currentPoint + "");
+//                    userExtendDao.insertExtendOfUser(userExtend);
+//                }else {
+//                    currentPoint = Integer.parseInt(userExtend.getVal());
+//                    currentPoint += upPoint;
+//                    userExtend.setVal(currentPoint + "");
+//                    userExtendDao.updateExtendOfUser(userExtend);
+//                }
 
                 // 消耗武将
                 userHero.setStatus(SGMacro.SG_HERO_USER_HERO_CONVERTED_SKill_POINT);
@@ -292,7 +325,7 @@ public class HeroController {
 
                 // 构造用户结构
                 UserModel userModel = new UserModel();
-                userModel.setSkillPoint(currentPoint);
+                //userModel.setSkillPoint(currentPoint);
                 responseModel.setData(userModel);
             }
         }
@@ -470,11 +503,13 @@ public class HeroController {
     /**
      * 上阵指定英雄
      * @param userHeroId 用户英雄Id
-     * @param position 阵位
+     * @param posRow 阵位
      * @return
      */
     @PostMapping(value = "/select_hero")
-    public ResponseModel selectHero(@RequestParam String userHeroId, @RequestParam Integer position){
+    public ResponseModel selectHero(@RequestParam String userHeroId,
+                                    @RequestParam Integer posRow,
+                                    @RequestParam Integer posCol){
         ResponseModel responseModel = new ResponseModel();
 
         UserAuth userAuth = UserContext.getCurrentUserAuth();
@@ -487,7 +522,7 @@ public class HeroController {
             responseModel.setCode(ResponseCode.HERO_SELECTED);
         }else{
             // 检测阵位是否开启
-            if(position < 0 || position > 4){
+            if(posCol < 0 || posCol > 4){
                 responseModel.setCode(ResponseCode.HERO_INDEX_ERR);
             }else{
                 // 检测阵位是否为空
@@ -501,7 +536,8 @@ public class HeroController {
                     userSelectHero.setUserHeroId(userHeroId);
                     userSelectHero.setUserId(userId);
                     userSelectHero.setHeroId(userHero.getHeroId());
-                    userSelectHero.setPosition(position);
+                    userSelectHero.setPosRow(posRow);
+                    userSelectHero.setPosCol(posCol);
                     userSelectHeroDao.insertUserHero(userSelectHero);
                 }else{
                     // 更新被替换用户武将状态
@@ -513,7 +549,8 @@ public class HeroController {
                     userSelectHero.setUserHeroId(userHeroId);
                     userSelectHero.setHeroId(userHero.getHeroId());
                     userSelectHero.setUserId(userId);
-                    userSelectHero.setPosition(position);
+                    userSelectHero.setPosRow(posRow);
+                    userSelectHero.setPosCol(posCol);
                     userSelectHeroDao.updateUserSelectHero(userSelectHero);
                 }
                 // 更新用户武将状态
@@ -534,7 +571,9 @@ public class HeroController {
      * @return
      */
     @PostMapping(value = "/deselect_hero")
-    public ResponseModel deselectHero(@RequestParam(required = false) String userHeroId, @RequestParam(required = false) Integer position){
+    public ResponseModel deselectHero(@RequestParam(required = false) String userHeroId,
+                                      @RequestParam(required = false) Integer posRow,
+                                      @RequestParam(required = false) Integer posCol){
         ResponseModel responseModel = new ResponseModel();
 
         UserAuth userAuth = UserContext.getCurrentUserAuth();
@@ -552,24 +591,26 @@ public class HeroController {
                 userHeroDao.updateUserHero(userHero);
                 //下阵
                 UserSelectHero userSelectHero = userSelectHeroDao.getUserSelectHeroByUserHeroId(userHeroId);
-                userSelectHero.setPosition(0);
+                userSelectHero.setPosRow(0);
+                userSelectHero.setPosCol(0);
                 userSelectHeroDao.updateUserSelectHero(userSelectHero);
 
                 responseModel.setCode(ResponseCode.HERO_DESELECT_SUCCESS);
             }
         }else{
             // 检测阵位是否开启
-            if(position < 0 || position > 4){
+            if(posCol < 0 || posCol > 4){
                 responseModel.setCode(ResponseCode.HERO_INDEX_ERR);
             }else{
-                UserSelectHero userSelectHero = userSelectHeroDao.getUserSelectHeroByIndex(userId, position);
+                UserSelectHero userSelectHero = userSelectHeroDao.getUserSelectHeroByIndex(userId, posRow, posCol);
                 if (userSelectHero != null){
                     // 更新被替换用户武将状态
                     UserHero userHero = userHeroDao.getUserHeroByUserHeroId(userSelectHero.getUserHeroId());
                     userHero.setStatus(SGMacro.SG_HERO_USER_HERO_GET);
                     userHeroDao.updateUserHero(userHero);
                     //下阵
-                    userSelectHero.setPosition(0);
+                    userSelectHero.setPosRow(0);
+                    userSelectHero.setPosCol(0);
                     userSelectHeroDao.updateUserSelectHero(userSelectHero);
 
                     responseModel.setCode(ResponseCode.HERO_DESELECT_SUCCESS);

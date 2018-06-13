@@ -18,7 +18,7 @@ public interface UserBattleDao {
             @Result(property = "updateTime", column = "update_time"),
             @Result(property = "createTime", column = "create_time"),
     })
-    ArrayList<UserBattle> getAllUserBattleByChapterId(String userId, Integer chapterId);
+    ArrayList<UserBattle> getAllUserBattleByChapterId(String userId, String chapterId);
 
     @Select("SELECT * FROM user_battle WHERE user_id = #{0} AND battle_id = #{1}")
     @Results({
@@ -28,7 +28,7 @@ public interface UserBattleDao {
             @Result(property = "updateTime", column = "update_time"),
             @Result(property = "createTime", column = "create_time"),
     })
-    UserBattle getUserBattleByBattleId(String userId, Integer battleId);
+    UserBattle getUserBattleByBattleId(String userId, String battleId);
 
     @Insert("INSERT INTO user_battle(user_id, chapter_id, battle_id, status) " +
             "VALUES " +

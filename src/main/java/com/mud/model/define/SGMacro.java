@@ -19,46 +19,46 @@ public class SGMacro {
     /**
      * 战法类型 指挥
      */
-    public static final int SG_SKILL_TYPE_DIRECTOR = 1;
+    public static final String SG_SKILL_TYPE_DIRECTOR = "指挥";
     /**
      * 战法类型 主动
      */
-    public static final int SG_SKILL_TYPE_ACTIVE = 2;
+    public static final String SG_SKILL_TYPE_ACTIVE = "主动";
     /**
      * 战法类型 被动
      */
-    public static final int SG_SKILL_TYPE_PASSIVE = 3;
+    public static final String SG_SKILL_TYPE_PASSIVE = "被动";
 
 
 
     /**
      * 士兵类型 弓
      */
-    public static final int SG_SKILL_SOLDIER_TYPE_G = 1;
+    public static final String SG_SKILL_SOLDIER_TYPE_G = "弓";
     /**
      * 士兵类型 步
      */
-    public static final int SG_SKILL_SOLDIER_TYPE_B = 2;
+    public static final String SG_SKILL_SOLDIER_TYPE_B = "步";
     /**
      * 士兵类型 骑
      */
-    public static final int SG_SKILL_SOLDIER_TYPE_Q = 3;
+    public static final String SG_SKILL_SOLDIER_TYPE_Q = "骑";
     /**
      * 士兵类型 弓，步
      */
-    public static final int SG_SKILL_SOLDIER_TYPE_G_B = 4;
+    public static final String SG_SKILL_SOLDIER_TYPE_G_B = "弓步";
     /**
      * 士兵类型 弓，骑
      */
-    public static final int SG_SKILL_SOLDIER_TYPE_G_Q = 5;
+    public static final String SG_SKILL_SOLDIER_TYPE_G_Q = "弓骑";
     /**
      * 士兵类型 步，骑
      */
-    public static final int SG_SKILL_SOLDIER_TYPE_B_Q = 6;
+    public static final String SG_SKILL_SOLDIER_TYPE_B_Q = "步骑";
     /**
      * 士兵类型 弓，步，骑
      */
-    public static final int SG_SKILL_SOLDIER_TYPE_G_B_Q = 7;
+    public static final String SG_SKILL_SOLDIER_TYPE_G_B_Q = "弓步骑";
 
 
     /**

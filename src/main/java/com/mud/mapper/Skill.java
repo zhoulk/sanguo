@@ -11,8 +11,8 @@ public class Skill implements Serializable{
     private String skillName;
     private String desc;
     private String script;
-    private int skillType;
-    private int soldierType;
+    private String skillType;
+    private String soldierType;
     private Integer atkDist;
     private String atkDest;
     private String atkDestType;
@@ -43,19 +43,19 @@ public class Skill implements Serializable{
         this.desc = desc;
     }
 
-    public int getSkillType() {
+    public String getSkillType() {
         return skillType;
     }
 
-    public void setSkillType(int skillType) {
+    public void setSkillType(String skillType) {
         this.skillType = skillType;
     }
 
-    public int getSoldierType() {
+    public String getSoldierType() {
         return soldierType;
     }
 
-    public void setSoldierType(int soldierType) {
+    public void setSoldierType(String soldierType) {
         this.soldierType = soldierType;
     }
 

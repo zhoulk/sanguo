@@ -57,7 +57,7 @@ public class FightController {
      * @return  {@code BattleModel}
      */
     @PostMapping("/pve/battle")
-    public ResponseModel fightBattle(@RequestParam Integer battleId){
+    public ResponseModel fightBattle(@RequestParam String battleId){
 
         UserAuth userAuth = UserContext.getCurrentUserAuth();
         String userId = userAuth.getUserId();

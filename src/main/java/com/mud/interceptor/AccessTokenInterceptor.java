@@ -42,6 +42,8 @@ public class AccessTokenInterceptor implements HandlerInterceptor{
             }
         }
 
+        //dontNeedAuth = true;
+
         String token = httpServletRequest.getHeader(HttpMacro.SESSION_ID);
         UserAuth userAuth = userAuthDao.getUserAuthByAccessToken(token);
 

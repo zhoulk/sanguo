@@ -12,14 +12,23 @@ import java.util.ArrayList;
  */
 public interface BattleDao {
 
-    @Select("SELECT * FROM battle WHERE chapter_id = #{chapterId} order by battle_id")
+    @Select("SELECT * FROM battle WHERE chapter_id = #{chapterId} order by id")
     @Results({
             @Result(property = "battleId", column = "battle_id"),
             @Result(property = "chapterId", column = "chapter_id"),
             @Result(property = "battleTitle", column = "battle_title"),
             @Result(property = "battleDesc", column = "battle_desc"),
     })
-    public ArrayList<Battle> getAllBattleByChapterId(Integer chapterId);
+    public ArrayList<Battle> getAllBattleByChapterId(String chapterId);
+
+    @Select("SELECT * FROM battle order by id")
+    @Results({
+            @Result(property = "battleId", column = "battle_id"),
+            @Result(property = "chapterId", column = "chapter_id"),
+            @Result(property = "battleTitle", column = "battle_title"),
+            @Result(property = "battleDesc", column = "battle_desc"),
+    })
+    public ArrayList<Battle> getAllBattle();
 
     @Select("SELECT * FROM battle WHERE battle_id = #{battleId}")
     @Results({
@@ -28,5 +37,5 @@ public interface BattleDao {
             @Result(property = "battleTitle", column = "battle_title"),
             @Result(property = "battleDesc", column = "battle_desc"),
     })
-    public Battle getBattleById(Integer battleId);
+    public Battle getBattleById(String battleId);
 }

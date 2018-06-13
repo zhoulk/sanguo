@@ -8,8 +8,8 @@ import com.mud.mapper.UserBattle;
  */
 public class BattleModel {
 
-    private Integer battleId;
-    private Integer chapterId;
+    private String battleId;
+    private String chapterId;
     private String battleTitle;
     private String battleDesc;
 
@@ -29,19 +29,19 @@ public class BattleModel {
         this.status = userBattle.getStatus();
     }
 
-    public Integer getBattleId() {
+    public String getBattleId() {
         return battleId;
     }
 
-    public void setBattleId(Integer battleId) {
+    public void setBattleId(String battleId) {
         this.battleId = battleId;
     }
 
-    public Integer getChapterId() {
+    public String getChapterId() {
         return chapterId;
     }
 
-    public void setChapterId(Integer chapterId) {
+    public void setChapterId(String chapterId) {
         this.chapterId = chapterId;
     }
 

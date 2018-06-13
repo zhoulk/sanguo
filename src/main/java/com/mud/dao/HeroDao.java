@@ -15,7 +15,7 @@ public interface HeroDao {
             @Result(property = "heroId", column = "hero_id"),
             @Result(property = "atkDist", column = "atk_dist"),
             @Result(property = "towerAtk", column = "tower_atk"),
-            @Result(property = "moveSpeed", column = "move_speed"),
+            @Result(property = "moveSpeed", column = "speed"),
             @Result(property = "skillId", column = "skill_id"),
             @Result(property = "exSkillId", column = "ex_skill_id"),
     })
@@ -26,7 +26,7 @@ public interface HeroDao {
             @Result(property = "heroId", column = "hero_id"),
             @Result(property = "atkDist", column = "atk_dist"),
             @Result(property = "towerAtk", column = "tower_atk"),
-            @Result(property = "moveSpeed", column = "move_speed"),
+            @Result(property = "moveSpeed", column = "speed"),
             @Result(property = "skillId", column = "skill_id"),
             @Result(property = "exSkillId", column = "ex_skill_id"),
     })
@@ -37,7 +37,7 @@ public interface HeroDao {
             @Result(property = "heroId", column = "hero_id"),
             @Result(property = "atkDist", column = "atk_dist"),
             @Result(property = "towerAtk", column = "tower_atk"),
-            @Result(property = "moveSpeed", column = "move_speed"),
+            @Result(property = "moveSpeed", column = "speed"),
             @Result(property = "skillId", column = "skill_id"),
             @Result(property = "exSkillId", column = "ex_skill_id"),
     })
@@ -48,7 +48,7 @@ public interface HeroDao {
             @Result(property = "heroId", column = "hero_id"),
             @Result(property = "atkDist", column = "atk_dist"),
             @Result(property = "towerAtk", column = "tower_atk"),
-            @Result(property = "moveSpeed", column = "move_speed"),
+            @Result(property = "moveSpeed", column = "speed"),
             @Result(property = "skillId", column = "skill_id"),
             @Result(property = "exSkillId", column = "ex_skill_id"),
     })

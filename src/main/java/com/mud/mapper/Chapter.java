@@ -5,16 +5,16 @@ package com.mud.mapper;
  */
 public class Chapter {
 
-    private Integer chapterId;
+    private String chapterId;
     private String chapterTitle;
     private String chapterDesc;
     private int status;
 
-    public Integer getChapterId() {
+    public String getChapterId() {
         return chapterId;
     }
 
-    public void setChapterId(Integer chapterId) {
+    public void setChapterId(String chapterId) {
         this.chapterId = chapterId;
     }
 

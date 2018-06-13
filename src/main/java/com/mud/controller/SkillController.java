@@ -178,23 +178,23 @@ public class SkillController {
                     String script = skillExtend.getVal();
                     int upExp = calService.calValue(script, new SkillModel(skill, userSkill));
 
-                    UserExtend userExtend = userExtendDao.getExtendOfUserSkillPoint(userId);
-                    int skillPoint = 0;
-                    if (userExtend != null){
-                        skillPoint = Integer.parseInt(userExtend.getVal());
-                    }
-
-                    if (skillPoint >= upExp){
-                        skillPoint -= upExp;
-
-                        // 升一级
-                        userSkill.setLevel(userSkill.getLevel() + 1);
-                        userSkillDao.updateUserSkill(userSkill);
-
-                        // 扣除经验
-                        userExtend.setVal(skillPoint+"");
-                        userExtendDao.updateExtendOfUser(userExtend);
-                    }
+//                    UserExtend userExtend = userExtendDao.getExtendOfUserSkillPoint(userId);
+//                    int skillPoint = 0;
+//                    if (userExtend != null){
+//                        skillPoint = Integer.parseInt(userExtend.getVal());
+//                    }
+//
+//                    if (skillPoint >= upExp){
+//                        skillPoint -= upExp;
+//
+//                        // 升一级
+//                        userSkill.setLevel(userSkill.getLevel() + 1);
+//                        userSkillDao.updateUserSkill(userSkill);
+//
+//                        // 扣除经验
+//                        userExtend.setVal(skillPoint+"");
+//                        userExtendDao.updateExtendOfUser(userExtend);
+//                    }
 
                     // 组织回复
                     SkillModel skillModel = new SkillModel(skill, userSkill);

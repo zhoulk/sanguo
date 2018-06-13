@@ -18,5 +18,5 @@ public interface BattleExtendDao {
             @Result(property = "updateTime", column = "update_time"),
             @Result(property = "createTime", column = "create_time")
     })
-    public ArrayList<BattleExtend> getExtendOfBattle(int battleId);
+    public ArrayList<BattleExtend> getExtendOfBattle(String battleId);
 }

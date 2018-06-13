@@ -9,7 +9,7 @@ import com.mud.mapper.UserChapter;
 public class ChapterModel {
 
     // '章回'
-    private Integer chapterId;
+    private String chapterId;
 
     private String chapterTitle;
     private String chapterDesc;
@@ -29,11 +29,11 @@ public class ChapterModel {
         this.status = userChapter.getStatus();
     }
 
-    public Integer getChapterId() {
+    public String getChapterId() {
         return chapterId;
     }
 
-    public void setChapterId(Integer chapterId) {
+    public void setChapterId(String chapterId) {
         this.chapterId = chapterId;
     }
 

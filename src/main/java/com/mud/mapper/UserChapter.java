@@ -11,7 +11,7 @@ public class UserChapter {
     private String userId;
 
     // '章回'
-    private Integer chapterId;
+    private String chapterId;
 
     // '得分'
     private Integer score;
@@ -33,11 +33,11 @@ public class UserChapter {
         this.userId = userId;
     }
 
-    public Integer getChapterId() {
+    public String getChapterId() {
         return chapterId;
     }
 
-    public void setChapterId(Integer chapterId) {
+    public void setChapterId(String chapterId) {
         this.chapterId = chapterId;
     }
 

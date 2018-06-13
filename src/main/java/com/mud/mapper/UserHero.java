@@ -22,6 +22,13 @@ public class UserHero {
     private Date updateTime;
     private Date createTime;
 
+    private Integer intelligence;
+    private Integer atkDist;
+    private Integer towerAtk;
+    private Integer attack;
+    private Integer defence;
+    private Integer moveSpeed;
+
     public String getUserHeroId() {
         return userHeroId;
     }
@@ -108,5 +115,65 @@ public class UserHero {
 
     public void setSp(int sp) {
         this.sp = sp;
+    }
+
+    public static Integer getSkillPosition1() {
+        return skillPosition1;
+    }
+
+    public static Integer getSkillPosition2() {
+        return skillPosition2;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public Integer getIntelligence() {
+        return intelligence;
+    }
+
+    public void setIntelligence(Integer intelligence) {
+        this.intelligence = intelligence;
+    }
+
+    public Integer getAtkDist() {
+        return atkDist;
+    }
+
+    public void setAtkDist(Integer atkDist) {
+        this.atkDist = atkDist;
+    }
+
+    public Integer getTowerAtk() {
+        return towerAtk;
+    }
+
+    public void setTowerAtk(Integer towerAtk) {
+        this.towerAtk = towerAtk;
+    }
+
+    public Integer getAttack() {
+        return attack;
+    }
+
+    public void setAttack(Integer attack) {
+        this.attack = attack;
+    }
+
+    public Integer getDefence() {
+        return defence;
+    }
+
+    public void setDefence(Integer defence) {
+        this.defence = defence;
+    }
+
+    public Integer getMoveSpeed() {
+        return moveSpeed;
+    }
+
+    public void setMoveSpeed(Integer moveSpeed) {
+        this.moveSpeed = moveSpeed;
     }
 }

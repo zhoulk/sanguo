@@ -316,7 +316,7 @@ public class FightService {
         List<UserReportDetail> reportDetailList = new ArrayList<>();
 
         int atkDist = model.getAtkDist();
-        int position = model.getPosition();
+        int position = model.getPosCol();
         int maxAtkDist = Math.abs(position - atkDist);
         if (maxAtkDist > 0){
             if (enermyHeros.size() > 0){

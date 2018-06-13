@@ -1,22 +1,22 @@
 package com.mud.controller;
 
-import com.mud.context.UserContext;
 import com.mud.dao.*;
 import com.mud.mapper.User;
 import com.mud.mapper.UserAuth;
 import com.mud.mapper.UserExtend;
+import com.mud.mapper.UserIncome;
 import com.mud.mapper.defines.DBMacro;
 import com.mud.helper.EncoderHelper;
 import com.mud.model.ResponseModel;
 import com.mud.model.UserModel;
 import com.mud.property.ResponseCode;
 import com.mud.property.SGProps;
+import com.mud.service.CacheService;
 import com.mud.service.SequenceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.List;
 
 /**
  * Created by leeesven on 17/8/19.
@@ -24,6 +24,9 @@ import java.util.Date;
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
+
+    private String[] props = new String[]{"nickName","exp","lv","power"};
+    private String[] vals = new String[]{"小英雄","0","1","0"};
 
     @Autowired
     private SGProps sgProps;
@@ -39,6 +42,12 @@ public class UserController {
 
     @Autowired
     UserExtendDao userExtendDao;
+
+    @Autowired
+    UserIncomeDao userIncomeDao;
+
+    @Autowired
+    ConfigDao configDao;
 
     /**
      * 用户注册
@@ -72,6 +81,22 @@ public class UserController {
                 userAuth.setAuthName(DBMacro.AUTH_NAME_LOCAL);
                 userAuth.setAuthId(md5Str);
                 userAuthDao.insertUserAuth(userAuth);
+
+                // 完善扩展信息
+                for(int i=0; i<props.length; i++){
+                    UserExtend userExtend = new UserExtend();
+                    userExtend.setUserId(userId);
+                    userExtend.setProp(props[i]);
+                    userExtend.setVal(vals[i]);
+                    userExtendDao.insertExtendOfUser(userExtend);
+                }
+
+                //创建账户
+                UserIncome userIncome = new UserIncome();
+                userIncome.setUserId(userId);
+                userIncome.setGold(0);
+                userIncome.setTongBi(0);
+                userIncomeDao.insertUserIncome(userIncome);
 
                 User resultUser = userDao.getUserByName(name);
                 responseModel.setCode(ResponseCode.USER_REGISTER_SUCCESS);
@@ -117,7 +142,22 @@ public class UserController {
                 userAuthDao.updateUserAuth(userAuth);
 
                 responseModel.setCode(ResponseCode.USER_LOGIN_SUCCESS);
-                responseModel.setData(new UserModel(historyUser, userAuth));
+                UserModel userModel = new UserModel(historyUser, userAuth);
+
+                List<UserExtend> extendList = userExtendDao.getUserExtendList(userAuth.getUserId());
+                userModel.setExtendList(extendList);
+
+                UserIncome userIncome = userIncomeDao.selectUserIncome(userAuth.getUserId());
+                userModel.setGold(userIncome.getGold());
+                userModel.setTongBi(userIncome.getTongBi());
+
+                long exp = CacheService.levelUpExp(userModel.getLv());
+                if(exp == 0){
+                    CacheService.cacheConfig(configDao.getAllConfig());
+                }
+                userModel.setLvUpExp(CacheService.levelUpExp(userModel.getLv()));
+
+                responseModel.setData(userModel);
             }else {
                 responseModel.setCode(ResponseCode.USER_LOGIN_PASSWORD_ERR);
             }
@@ -126,25 +166,25 @@ public class UserController {
         return responseModel;
     }
 
-    @GetMapping(value = "/skill_point")
-    public ResponseModel getSkillPoint(){
-
-        UserAuth userAuth = UserContext.getCurrentUserAuth();
-        String userId = userAuth.getUserId();
-        System.out.println("getSkillPoint userId = " + userId);
-
-        ResponseModel responseModel = new ResponseModel();
-
-        UserExtend userExtend = userExtendDao.getExtendOfUserSkillPoint(userId);
-        int skillPoint = 0;
-        if (userExtend != null){
-            skillPoint = Integer.parseInt(userExtend.getVal());
-        }
-        UserModel userModel = new UserModel();
-        userModel.setSkillPoint(skillPoint);
-        responseModel.setData(userModel);
-
-        return responseModel;
-    }
+//    @GetMapping(value = "/skill_point")
+//    public ResponseModel getSkillPoint(){
+//
+//        UserAuth userAuth = UserContext.getCurrentUserAuth();
+//        String userId = userAuth.getUserId();
+//        System.out.println("getSkillPoint userId = " + userId);
+//
+//        ResponseModel responseModel = new ResponseModel();
+//
+//        UserExtend userExtend = userExtendDao.getExtendOfUserSkillPoint(userId);
+//        int skillPoint = 0;
+//        if (userExtend != null){
+//            skillPoint = Integer.parseInt(userExtend.getVal());
+//        }
+//        UserModel userModel = new UserModel();
+//        userModel.setSkillPoint(skillPoint);
+//        responseModel.setData(userModel);
+//
+//        return responseModel;
+//    }
 
 }

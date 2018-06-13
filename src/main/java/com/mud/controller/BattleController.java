@@ -47,12 +47,24 @@ public class BattleController {
     }
 
     /**
+     * 获取所有战役
+     * @return  {@code ArrayList<Battle>}
+     */
+    @GetMapping(value = "/zhanyi/all")
+    public ResponseModel getAllBattle(){
+        ResponseModel responseModel = new ResponseModel();
+        responseModel.setData(battleDao.getAllBattle());
+        return responseModel;
+    }
+
+
+    /**
      * 获取指定章节信息
      * @param chapterId 章节Id
      * @return  {@code Chapter}
      */
     @GetMapping(value = "/chapter/{chapterId}")
-    public ResponseModel getChapterById(@PathVariable Integer chapterId){
+    public ResponseModel getChapterById(@PathVariable String chapterId){
         ResponseModel responseModel = new ResponseModel();
         responseModel.setData(chapterDao.getChapterById(chapterId));
         return responseModel;
@@ -64,7 +76,7 @@ public class BattleController {
      * @return  {@code ArrayList<Battle>}
      */
     @GetMapping(value = "/all")
-    public ResponseModel getAllBattleByChapterId(@RequestParam Integer chapterId){
+    public ResponseModel getAllBattleByChapterId(@RequestParam String chapterId){
         ResponseModel responseModel = new ResponseModel();
         responseModel.setData(battleDao.getAllBattleByChapterId(chapterId));
         return responseModel;
@@ -76,7 +88,7 @@ public class BattleController {
      * @return  {@code Battle}
      */
     @GetMapping(value = "/{battleId}")
-    public ResponseModel getBattleById(@PathVariable Integer battleId){
+    public ResponseModel getBattleById(@PathVariable String battleId){
         ResponseModel responseModel = new ResponseModel();
         responseModel.setData(battleDao.getBattleById(battleId));
         return responseModel;
@@ -124,7 +136,7 @@ public class BattleController {
      * @return  {@code ArrayList<UserBattle>}
      */
     @GetMapping(value = "/all/user_battle")
-    public ResponseModel getAllUserBattleByChapterId(@RequestParam Integer chapterId){
+    public ResponseModel getAllUserBattleByChapterId(@RequestParam String chapterId){
 
         UserAuth userAuth = UserContext.getCurrentUserAuth();
         System.out.println("getAllUserChaper userId = " + userAuth.getUserId());

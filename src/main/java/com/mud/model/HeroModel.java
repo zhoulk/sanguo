@@ -33,7 +33,8 @@ public class HeroModel {
     private int exp;
 
     private String userHeroId;
-    private Integer position;
+    private Integer posRow;
+    private Integer posCol;
 
     private SkillModel skill;
     private SkillModel exSkill1;
@@ -73,11 +74,7 @@ public class HeroModel {
         this.star = hero.getStar();
         this.cost = hero.getCost();
         this.type = hero.getType();
-        this.intelligence = hero.getIntelligence();
-        this.atkDist = hero.getAtkDist();
-        this.towerAtk = hero.getTowerAtk();
-        this.attack = hero.getAttack();
-        this.defence = hero.getDefence();
+
         this.skillId = hero.getSkillId();
         this.exSkillId = hero.getExSkillId();
         this.moveSpeed = hero.getMoveSpeed();
@@ -89,6 +86,12 @@ public class HeroModel {
         this.exp = userHero.getExp();
 
         this.userHeroId = userHero.getUserHeroId();
+
+        this.intelligence = userHero.getIntelligence();
+        this.atkDist = userHero.getAtkDist();
+        this.towerAtk = userHero.getTowerAtk();
+        this.attack = userHero.getAttack();
+        this.defence = userHero.getDefence();
     }
 
     public HeroModel(Hero hero, UserHero userHero, UserSelectHero userSelectHero) {
@@ -115,7 +118,8 @@ public class HeroModel {
 
         this.userHeroId = userHero.getUserHeroId();
 
-        this.position = userSelectHero.getPosition();
+        this.posRow = userSelectHero.getPosRow();
+        this.posCol = userSelectHero.getPosCol();
     }
 
     public String getHeroId() {
@@ -270,14 +274,6 @@ public class HeroModel {
         this.userHeroId = userHeroId;
     }
 
-    public Integer getPosition() {
-        return position;
-    }
-
-    public void setPosition(Integer position) {
-        this.position = position;
-    }
-
     public SkillModel getSkill() {
         return skill;
     }
@@ -384,5 +380,29 @@ public class HeroModel {
 
     public void setCanSkillPoint(int canSkillPoint) {
         this.canSkillPoint = canSkillPoint;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public void setSoldierNum(int soldierNum) {
+        this.soldierNum = soldierNum;
+    }
+
+    public Integer getPosRow() {
+        return posRow;
+    }
+
+    public void setPosRow(Integer posRow) {
+        this.posRow = posRow;
+    }
+
+    public Integer getPosCol() {
+        return posCol;
+    }
+
+    public void setPosCol(Integer posCol) {
+        this.posCol = posCol;
     }
 }

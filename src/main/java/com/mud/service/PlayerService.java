@@ -86,7 +86,7 @@ public class PlayerService {
      * @param battleId
      * @return
      */
-    public List<UserReportDetail> calBattleReward(String userId, List<HeroModel> heros, int battleId){
+    public List<UserReportDetail> calBattleReward(String userId, List<HeroModel> heros, String battleId){
         List<UserReportDetail> reportDetailList = new ArrayList<>();
 
         ArrayList<BattleExtend> battleRewards = battleExtendDao.getExtendOfBattle(battleId);

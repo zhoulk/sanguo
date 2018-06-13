@@ -10,7 +10,8 @@ public class UserSelectHero {
     private String userHeroId;
     private String userId;
     private String heroId;
-    private Integer position;
+    private Integer posRow;
+    private Integer posCol;
     private Date updateTime;
     private Date createTime;
 
@@ -38,14 +39,6 @@ public class UserSelectHero {
         this.heroId = heroId;
     }
 
-    public Integer getPosition() {
-        return position;
-    }
-
-    public void setPosition(Integer position) {
-        this.position = position;
-    }
-
     public Date getUpdateTime() {
         return updateTime;
     }
@@ -60,5 +53,21 @@ public class UserSelectHero {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public Integer getPosRow() {
+        return posRow;
+    }
+
+    public void setPosRow(Integer posRow) {
+        this.posRow = posRow;
+    }
+
+    public Integer getPosCol() {
+        return posCol;
+    }
+
+    public void setPosCol(Integer posCol) {
+        this.posCol = posCol;
     }
 }

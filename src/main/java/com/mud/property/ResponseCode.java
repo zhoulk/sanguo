@@ -63,6 +63,10 @@ public enum ResponseCode {
      */
     HERO_DESELECTED("英雄未上阵！", 407),
     /**
+     * 英雄随机失败
+     */
+    HERO_RANDOM_FAIL("抽取英雄失败！", 408),
+    /**
      * 英雄下阵成功
      */
     HERO_DESELECT_SUCCESS("英雄下阵成功！", SYS_SUCCESS.getValue()),
